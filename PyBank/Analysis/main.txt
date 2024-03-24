@@ -70,11 +70,26 @@ with open(csvpath, newline='') as csvfile:
 # Calculate the average change
 average_change = total_change / (total_months - 1)  # Subtracted 1 for the first month without change data
 
-# Print the results & header
+# Set output path to write to a text file
+output_path = r'C:\Users\gruiz\desktop\bootcamp\repos\python-challenge\Pybank\analysis\financial_analysis.txt'
+
+with open(output_path, 'w') as txtfile:
+    # Write the analysis to the file
+    txtfile.write("Financial Analysis\n")
+    txtfile.write("----------------------------\n")
+    txtfile.write(f"Total Months: {total_months}\n")
+    txtfile.write(f"Total: ${total_profit_loss}\n")
+    txtfile.write(f"Average Change: ${average_change:.2f}\n")
+    txtfile.write(f"Greatest Increase in Profits: {greatest_increase_month} (${greatest_increase})\n")
+    txtfile.write(f"Greatest Decrease in Profits: {greatest_decrease_month} (${greatest_decrease})\n")
+
+# Print the analysis to the console as well
 print("Financial Analysis")
 print("----------------------------")
 print(f"Total Months: {total_months}")
-print(f"Total Profit/Loss: ${total_profit_loss}")
-print(f"Average Change: ${average_change}")
+print(f"Total: ${total_profit_loss}")
+print(f"Average Change: ${average_change:.2f}")
 print(f"Greatest Increase in Profits: {greatest_increase_month} (${greatest_increase})")
 print(f"Greatest Decrease in Profits: {greatest_decrease_month} (${greatest_decrease})")
+
+print("\nResults have been written to financial_analysis.txt")

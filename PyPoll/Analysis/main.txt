@@ -51,19 +51,36 @@ with open(csvpath, newline='') as csvfile:
         else:
             candidate_votes[candidate_name] = 1
 
-# Calculate and print the results & header
-print("Election Results")
-print("----------------------------")
-print(f'Total Votes: {total_votes}')
-print("----------------------------")
+# set output path to write to a text file
+output_path = r'C:\Users\gruiz\desktop\bootcamp\repos\python-challenge\pypoll\analysis\election_results.txt'
 
-# Iterate through candidate_votes dictionary to print each candidate's results
-winner = max(candidate_votes, key=candidate_votes.get)
-for candidate, votes in candidate_votes.items():
-    percentage = (votes / total_votes) * 100
-    formatted_percentage = f'{percentage:.3f}%'
-    print(f'{candidate}: {formatted_percentage} ({votes})')
+with open(output_path, 'w') as txtfile:
+    # Write the header & total votes
+    txtfile.write("Election Results\n")
+    txtfile.write("----------------------------\n")
+    txtfile.write(f'Total Votes: {total_votes}\n')
+    txtfile.write("----------------------------\n")
 
-print("----------------------------")
-print(f'Winner: {winner}')
-print("----------------------------")
+    # Print and write the candidate results
+    for candidate, votes in candidate_votes.items():
+        percentage = (votes / total_votes) * 100
+        formatted_percentage = f'{percentage:.3f}%'
+        result_line = f'{candidate}: {formatted_percentage} ({votes})\n'
+        
+        print(result_line, end='')  # Print to terminal
+        txtfile.write(result_line)  # Write to file
+
+    # Determine and write the winner
+    winner = max(candidate_votes, key=candidate_votes.get)
+    winner_line = f'Winner: {winner}\n'
+
+    print("----------------------------")
+    print(winner_line, end='')
+    print("----------------------------")
+
+    # Write the footer lines to the file
+    txtfile.write("----------------------------\n")
+    txtfile.write(winner_line)
+    txtfile.write("----------------------------\n")
+
+print("Results have been exported to election_results.txt")
